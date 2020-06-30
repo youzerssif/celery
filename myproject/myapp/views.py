@@ -99,7 +99,7 @@ def json_api(request):
             # print(image)
             # print(serv)
     else:
-        print('erreur statut',status_code)
+        print('erreur statut',response.status_code)
     return JsonResponse(mydata, safe=False)
     
     
@@ -124,7 +124,7 @@ def json_mode_homme(request):
         # print(data,"zjncldncze")
 
         data = json.loads(data_to_python_json.strip('<![CDATA[').strip(']>'))
-        print(data)
+        data = data['articles']
         # data = datas['graphqlCache']
             
         # # print()
@@ -142,6 +142,6 @@ def json_mode_homme(request):
         #         pass
 
     else:
-        print('erreur statut',status_code)
+        print('erreur statut',response.status_code)
     return JsonResponse(data, safe=False)
     
