@@ -5,5 +5,6 @@ from . import views
 app_name = 'myapp'
 urlpatterns = [
     path('', views.home, name='home'),
+    path('api/', views.json_api, name='api'),
 
 ]
