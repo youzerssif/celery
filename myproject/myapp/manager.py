@@ -20,15 +20,13 @@ def cat_api(request):
         div_module = html_soup.find('script', attrs = {'id':'z-navicat-header-props'}, type='application/json')
         data_to_python_json = div_module.contents[0].replaceWith("")
         
-        d = data_to_python_json.replace('<![CDATA[', '')
-        de = d.replace(']]>', '')
-        datas = json.loads(de)
+        d = data_to_python_json.strip('<![CDATA[').strip(']>')
+        datas = json.loads(d)
         
         # print()
         # print(de)
         c = datas['model']['topnavi']['children'][2]['children']
         
-        print(c)
         mydata = []
         mydata.append(c)
     else:
