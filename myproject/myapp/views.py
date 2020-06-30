@@ -65,7 +65,7 @@ def json_api(request):
     import json
     from django.http import JsonResponse
 
-    url = 'https://www.zalando.fr/accueil-femme/'
+    url = 'https://www.zalando.fr/accueil-homme/'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -74,7 +74,7 @@ def json_api(request):
 
     if response.status_code == 200:
         
-        print('okkokokookoko')
+        # print('okkokokookoko')
         # print(html_soup.prettify())
         
         div_module = html_soup.find('script', attrs = {'class':'re-data-el-hydrate'}, type='application/json')
