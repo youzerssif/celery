@@ -87,9 +87,16 @@ def json_api(request):
         
         # print()
         # print(datas)
+        mydata = []
         for key in datas.keys(): 
             if "ern:product" in key:
-                print(key)
+                try:
+                    contdata = datas[key]['data']['product']
+                    # print(contdata)
+                    mydata.append(contdata)
+                    
+                except:
+                    pass
        
 
         
@@ -112,6 +119,6 @@ def json_api(request):
             # print(serv)
     else:
         print('erreur statut',status_code)
-    return JsonResponse(datas, safe=False)
+    return JsonResponse(mydata, safe=False)
     
     
