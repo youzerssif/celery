@@ -11,5 +11,6 @@ urlpatterns = [
     path('collection', collection_api, name='collection'),
     path('collection-data', data_collection, name='collection_data'),
     path('apimodehomme/', views.json_mode_homme, name='apimodehomme'),
+    path('json_detail_article/', views.json_detail_article, name='json_detail_article'),
 
 ]
