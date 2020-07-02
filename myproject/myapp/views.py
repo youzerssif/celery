@@ -12,7 +12,7 @@ def home(request):
     
 
 
-    url = 'https://www.zalando.fr/accueil-femme/'
+    url = 'https://www.zalando.fr/accueil-homme/'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -31,16 +31,24 @@ def home(request):
         
         datas =json.loads(data_to_python_json)
         # print(datas)
-       
+        datas = datas['graphqlCache']
+        
+        mydata = []
+        for key in datas.keys(): 
+            if "ern:product" in key:
+                try:
+                    contdata = datas[key]['data']['context']
+                    # print(contdata)
+                    mydata.append(contdata)
+                    
+                except:
+                    pass
+        return JsonResponse(datas, safe=False)
 
 
     else:
         print('erreur statut',response.status_code)
-    print(div_module)
-    data={
-        'datas':datas,
-    }
-    return render(request, 'home.html',data)
+   
 
 ######## elle recupere les datas de la premiere pages ##############  
 
@@ -85,7 +93,8 @@ def json_api(request):
 ######## elle recupere les datas des pages categories ##############  
 def json_mode_homme(request):
 
-    url = 'https://www.zalando.fr/accueil-luxe-homme/'
+
+    url = 'https://www.zalando.fr/mode-homme/'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -93,13 +102,14 @@ def json_mode_homme(request):
     html_soup = BeautifulSoup(response.text, 'html.parser')
 
     if response.status_code == 200:
-            
+        pages = html_soup.select('z-icon z-icon-pagination-chevron-right-active z-icon-small z-icon-black ')
+        print(pages)    
         try:
                 
             div_module = html_soup.find('script', id ="app-props", type='application/json')
             # data = json.loads(div_module.text)
             data_to_python_json = div_module.contents[0].replaceWith("")
-            # print(data_to_python_json.replace('<![CDATA[','').replace(']>',''),"zjncldncze")
+            # print(data_to_python_json.replace('<![CDATA[','').replace(']>',''),"zjncldncze") 
 
             data = json.loads(data_to_python_json.replace('<![CDATA[','').replace(']]>',''))
             mydata = []
@@ -108,19 +118,35 @@ def json_mode_homme(request):
                 mydata.append(item)
                 # print(item)
             # data = data['articles']
-
+            return JsonResponse(mydata, safe=False)
+            
                     
+        except Exception as e:
+            print(str(e))
+            
+        try:
+            div_module = html_soup.find('script', id ="z-nvg-cognac-props", type='application/json')
+            # data = json.loads(div_module.text)
+            data_to_python_json = div_module.contents[0].replaceWith("")
+            # print(data_to_python_json.replace('<![CDATA[','').replace(']>',''),"zjncldncze") z-nvg-cognac-props"
+
+            mydata = json.loads(data_to_python_json.replace('<![CDATA[','').replace(']]>',''))
+
+            mydata = mydata['articles']
+            # print(mydata)
+
+            return JsonResponse(mydata, safe=False)
+
         except Exception as e:
             print(str(e))
 
     else:
         print('erreur statut',response.status_code)
-    return JsonResponse(mydata, safe=False)
-
+    
 
 def json_detail_article(request):
     
-    url = 'https://www.zalando.fr/lindbergh-plain-mens-suit-slim-fit-costume-lg522a002-o13.html'
+    url = 'https://www.zalando.fr/isaac-dewhirst-wedding-suit-pale-costume-stone-dh022a00u-c11.html'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -133,6 +159,20 @@ def json_detail_article(request):
             data_to_python_json = div_module.contents[0].replaceWith("")
             datas =json.loads(data_to_python_json)
             datas = datas['graphqlCache']
+            mydata = []
+            for key in datas.keys(): 
+                if "ern:product" in key:
+                    try:
+                        contdata = datas[key]['data']['product']
+                        # print(contdata)
+                        mydata.append(contdata)
+                        # print(mydata)
+                        # break
+                        
+                    except:
+                        pass
+                    
+            return JsonResponse(mydata, safe=False)
         except Exception as e:
             print(str(e))
         
@@ -148,15 +188,16 @@ def json_detail_article(request):
             
 
             mydata = []
-            for key in datas.keys(): 
+            for key in articleInfo.keys(): 
                 if "ern:product" in key:
                     try:
-                        contdata = datas[key]['data']['product']
+                        contdata = articleInfo[key]['data']['product']
                         # print(contdata)
                         mydata.append(contdata)
                         
                     except:
                         pass
+            return JsonResponse(mydata, safe=False)
                         
         except Exception as e:
             print(str(e)) 
@@ -164,4 +205,4 @@ def json_detail_article(request):
         
     else:
         print('erreur statut',response.status_code)
-    return JsonResponse(articleInfo, safe=False)
+    
