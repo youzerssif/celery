@@ -33,7 +33,7 @@ def cat_api(request):
         mydata.append(c)
         # print(mydata)
     else:
-        print('erreur statut',status_code)
+        print('erreur statut',response.status_code)
     return JsonResponse(data=mydata, safe=False) 
 
 def look(request):
@@ -72,9 +72,7 @@ def look(request):
                         print(urlda)
                         
                     
-                    # cle = d["props"]["entityPositionsByFiltersHash"]
-                    # print(d)
-                    # data.append(d)
+
                     break
         except:
             data = None
@@ -106,40 +104,7 @@ def collection_api(request):
                     if "https://www.zalando.fr/collections/" in contdata['uri']:
                         # print("ok")
                         url_valide =  contdata['uri']
-                        # mydata.append(url_valide)
-                    #     print(url_valide)
-                    #     url = url_valide
-                    #     # print(url)
-
-                    #     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-                    #     response = get(url,headers=headers)
-
-                    #     html_soup = BeautifulSoup(response.text, 'html.parser')
-
-                    #     if response.status_code == 200:
-                            
-                    #         div_module = html_soup.find('script', attrs = {'class':'re-data-el-hydrate'}, type='application/json')
-                    #         data_to_python_json = div_module.contents[0].replaceWith("")
-                    #         datas =json.loads(data_to_python_json)
-                    #         datas = datas['graphqlCache']
-                    #         mydata = []
-                    #         for key in datas.keys(): 
-                    #             if "ern:product" in key:
-                    #                 try:
-                    #                     contdata = datas[key]['data']['product']
-                    #                     # print(contdata)
-                    #                     mydata.append(contdata)
-                    #                 except:
-                    #                     pass
-                    #     else:
-                    #         print('erreur statut',status_code)
-                    #     return JsonResponse(data=mydata, safe=False)
-                    # elif not "https://www.zalando.fr/collections/" in contdata['uri']:
-                    #     print('les autres liens')
-                    #     other = contdata['uri']
-                    # else:
-                    #     pass
-                    # # urlCollections = urlCollection
+                        
                 except Exception as e:
                     print(str(e))
     else:
@@ -173,5 +138,5 @@ def data_collection(request):
                 except:
                     pass
     else:
-        print('erreur statut',status_code)
+        print('erreur statut',response.status_code)
     return JsonResponse(data=mydata, safe=False)

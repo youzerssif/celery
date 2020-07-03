@@ -21,7 +21,7 @@ def home(request):
 
     if response.status_code == 200:
         
-        print('okkokokookoko')
+        # print('okkokokookoko')
         # print(html_soup.prettify())
         
         div_module = html_soup.find('script', attrs = {'class':'re-data-el-hydrate'}, type='application/json')
@@ -94,7 +94,7 @@ def json_api(request):
 def json_mode_homme(request):
 
 
-    url = 'https://www.zalando.fr/mode-homme/'
+    url = 'https://www.zalando.fr/homme/?camp=mu_sneaker_releases'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -102,8 +102,7 @@ def json_mode_homme(request):
     html_soup = BeautifulSoup(response.text, 'html.parser')
 
     if response.status_code == 200:
-        pages = html_soup.select('z-icon z-icon-pagination-chevron-right-active z-icon-small z-icon-black ')
-        print(pages)    
+   
         try:
                 
             div_module = html_soup.find('script', id ="app-props", type='application/json')
@@ -113,6 +112,14 @@ def json_mode_homme(request):
 
             data = json.loads(data_to_python_json.replace('<![CDATA[','').replace(']]>',''))
             mydata = []
+            try:
+                next_page = html_soup.find_all('li', attrs={'class':'cat_item-25ZBj'})[2]
+                next_page = url + next_page.find('a', {'class': 'cat_link-8qswi'}).get('href')
+                # c = json_mode_homme(next_page)
+                # print(next_page)
+            except Exception as e:
+                print(str(e))
+                
             # print(data)
             for item in data['content']['brands']['brands']:
                 mydata.append(item)
@@ -134,6 +141,15 @@ def json_mode_homme(request):
 
             mydata = mydata['articles']
             # print(mydata)
+            try:
+                next_page = html_soup.find_all('li', attrs={'class':'cat_item-25ZBj'})[2]
+                next_page = url + next_page.find('a', {'class': 'cat_link-8qswi'}).get('href')
+                # print(next_page)
+                # c = json_mode_homme(next_page)
+                # print(c)
+            except Exception as e:
+                print(str(e))
+            
 
             return JsonResponse(mydata, safe=False)
 
@@ -146,7 +162,7 @@ def json_mode_homme(request):
 
 def json_detail_article(request):
     
-    url = 'https://www.zalando.fr/isaac-dewhirst-wedding-suit-pale-costume-stone-dh022a00u-c11.html'
+    url = 'https://www.zalando.fr/outfits/nFbqYN8fRCK/'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -165,6 +181,7 @@ def json_detail_article(request):
                     try:
                         contdata = datas[key]['data']['product']
                         # print(contdata)
+                        # break
                         mydata.append(contdata)
                         # print(mydata)
                         # break
@@ -172,7 +189,7 @@ def json_detail_article(request):
                     except:
                         pass
                     
-            return JsonResponse(mydata, safe=False)
+            return JsonResponse(datas, safe=False)
         except Exception as e:
             print(str(e))
         
@@ -181,9 +198,6 @@ def json_detail_article(request):
             # data = json.loads(div_module.text)
             data_to_python_json = div_module.contents[0].replaceWith("")
 
-            
-            
-            
             articleInfo = json.loads(data_to_python_json.strip('<![CDATA[').strip(']>'))
             
 
