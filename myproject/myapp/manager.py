@@ -158,7 +158,7 @@ def articlelook(request):
 
 def article(request):
     
-    url = 'https://www.zalando.fr/allsaints-dedham-chemise-whiteink-navy-a0q22d06i-a11.html'
+    url = 'https://www.zalando.fr/massimo-dutti-chemise-blue-m3i22d05r-k12.html'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
@@ -173,7 +173,21 @@ def article(request):
         d = data_to_python_json.strip('<![CDATA[').strip(']>')
         datas = json.loads(d)
         article = datas["model"]["articleInfo"]
-
+        
+        nom = article['name']
+        prix = article['displayPrice']['price']['formatted']
+        marque = article['brand']['name']
+        couleur = article['color']
+        description = article['attributes'][0:1]
+        for item in description:
+            print(item['data'])
+        # print(description)
+        # prix_reduit = article['displayPrice']['price']
+        image = article['media']['images']
+        # print(nom, prix, image)
+        for item in image:
+            images = item['sources']
+            # print(images)
         mydata.append(article)
     else:
         print('erreur statut',response.status_code)
