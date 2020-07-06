@@ -159,11 +159,7 @@ def articlelook(request):
 
 def article(request):
     
-<<<<<<< HEAD
-    url = 'https://www.zalando.fr/petrol-industries-short-burgundy-p6822f02a-g11.html'
-=======
     url = 'https://www.zalando.fr/massimo-dutti-chemise-blue-m3i22d05r-k12.html'
->>>>>>> 935e566fde22fd2fc71dd1f4eb288696841ca1b5
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
