@@ -23,5 +23,6 @@ urlpatterns = [
 
     path('apimodehomme/', views.json_mode_homme, name='apimodehomme'),
     path('json_detail_article/', views.json_detail_article, name='json_detail_article'),
+    path('json_marques/', views.json_marques, name='json_marques'),
 
 ]

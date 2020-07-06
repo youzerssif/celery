@@ -25,7 +25,7 @@ SECRET_KEY = '#16+_4#si!(wf*hlvai*9+vt7kz+l7k9hpn7ckac#=2&oo^iyp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','192.168.70.37']
 
 
 # celery

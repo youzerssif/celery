@@ -219,4 +219,32 @@ def json_detail_article(request):
         
     else:
         print('erreur statut',response.status_code)
+
+
+def json_marques(request):
     
+
+    url = 'https://www.zalando.fr/marques/homme/'
+
+    headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+    response = get(url,headers=headers)
+
+    html_soup = BeautifulSoup(response.text, 'html.parser')
+
+    if response.status_code == 200:
+        
+        
+        div_module = html_soup.find('script', id='z-stt-brands-page-props', type='application/json')
+        # data = json.loads(div_module.text)
+        data_to_python_json = div_module.contents[0].replaceWith("")
+        # print(data_to_python_json,"zjncldncze")
+        
+        json_marques = json.loads(data_to_python_json.strip('<![CDATA[').strip(']>'))
+        # json_marques = json_marques[' props']['brands']
+        
+
+        
+       
+    else:
+        print('erreur statut',response.status_code)
+    return JsonResponse(json_marques, safe=False)

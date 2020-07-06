@@ -34,7 +34,7 @@ class SousCategorie(models.Model):
     # TODO: Define fields here
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, related_name="categorie",null=True)
     nom = models.CharField(max_length=255,null=True)
-    lien = models.URLField(max_length=255,null=True)
+    lien = models.URLField(max_length=255,null=True, blank=True)
     
     statut = models.BooleanField(default=False,null=True)
     date_add = models.DateTimeField(auto_now_add=True,null=True)
