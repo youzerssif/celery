@@ -189,7 +189,7 @@ def json_detail_article(request):
                     except:
                         pass
                     
-            return JsonResponse(datas, safe=False)
+            return JsonResponse(mydata, safe=False)
         except Exception as e:
             print(str(e))
         
