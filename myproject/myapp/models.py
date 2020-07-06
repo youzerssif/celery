@@ -152,7 +152,10 @@ class Look(models.Model):
         models.CharField(max_length=255),
         null=True
     )
-
+    statut = models.BooleanField(default=False,null=True)
+    date_add = models.DateTimeField(auto_now_add=True,null=True)
+    date_upd = models.DateTimeField(auto_now=True,null=True)
+    
     class Meta:
         """Meta definition for Look."""
 
