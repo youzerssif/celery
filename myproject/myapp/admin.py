@@ -165,3 +165,13 @@ class LookAdmin(admin.ModelAdmin, DynamicArrayMixin):
         self.message_user(request, "La selection a été desactivé avec succés")
 
     desactive.short_description = "desactivés Les Look selectionnées"
+
+def _register(model, admin_class):
+    admin.site.register(model, admin_class)
+
+
+_register(models.Produit, ProduitAdmin)
+_register(models.Look, LookAdmin)
+_register(models.Collection, CollectionAdmin)
+_register(models.Categorie, CategorieAdmin)
+_register(models.SousCategorie, SousCategorieAdmin)
