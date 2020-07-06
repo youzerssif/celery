@@ -38,6 +38,7 @@ def cat_api(request):
                 
                 categorie_url = 'https://www.zalando.fr' + categorie['url_key']
                 categorie_name = categorie['name']
+                print(categorie_name)
                 try:
                     is_exist = (
                         models.Categorie.objects.filter(nom=categorie_name) or None

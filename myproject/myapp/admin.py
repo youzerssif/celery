@@ -150,7 +150,7 @@ class LookAdmin(admin.ModelAdmin, DynamicArrayMixin):
     actions = ('active', 'desactive')
     
     filter_horizontal = (
-        'article'
+        'article',
     )
     list_per_page = 30
 
@@ -171,7 +171,7 @@ def _register(model, admin_class):
 
 
 _register(models.Produit, ProduitAdmin)
-# _register(models.Look, LookAdmin)
+_register(models.Look, LookAdmin)
 _register(models.Collection, CollectionAdmin)
 _register(models.Categorie, CategorieAdmin)
 _register(models.SousCategorie, SousCategorieAdmin)
