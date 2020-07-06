@@ -176,14 +176,14 @@ def article(request):
         article = datas["model"]["articleInfo"]
         
         nom = article['name']
-        prix = article['displayPrice']['price']['formatted']
+        prix = article['displayPrice']['originalPrice']['formatted']
+        prix_reduit = article['displayPrice']['price']['formatted']
         marque = article['brand']['name']
         couleur = article['color']
         description = article['attributes'][0:1]
         for item in description:
             print(item['data'])
         # print(description)
-        # prix_reduit = article['displayPrice']['price']
         image = article['media']['images']
         # print(nom, prix, image)
         for item in image:
