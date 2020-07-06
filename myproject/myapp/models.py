@@ -121,6 +121,7 @@ class Collection(models.Model):
     titre = models.CharField(max_length=255,null=True)
     nom_auteur = models.CharField(max_length=255,null=True)
     articles = JSONField(null=True)
+    lien = models.URLField(max_length=255,null=True)
     
     statut = models.BooleanField(default=False,null=True)
     date_add = models.DateTimeField(auto_now_add=True,null=True)
