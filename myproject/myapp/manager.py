@@ -106,6 +106,7 @@ def look(request):
                             # print(type(img))
                             for im in img.values():
                                 auteurimage = im["url"]
+                                print(auteurimage)
                         
                         photo = k["media"]
                         for p in photo:
@@ -158,7 +159,7 @@ def articlelook(request):
 
 def article(request):
     
-    url = 'https://www.zalando.fr/allsaints-dedham-chemise-whiteink-navy-a0q22d06i-a11.html'
+    url = 'https://www.zalando.fr/petrol-industries-short-burgundy-p6822f02a-g11.html'
 
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     response = get(url,headers=headers)
