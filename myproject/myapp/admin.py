@@ -71,7 +71,8 @@ class ProduitAdmin(admin.ModelAdmin, DynamicArrayMixin):
         'sous_categorie_item',
         'nom',
         'statut',
-        'date_add'
+        'date_add',
+        'date_upd'
     )
     list_filter = (
         'statut',
