@@ -8,11 +8,8 @@ class Categorie(models.Model):
 
     # TODO: Define fields here
     nom = models.CharField(max_length=255,null=True)
-    url_key = models.CharField(max_length=255,null=True)
     lien = models.URLField(max_length=255,null=True)
-    image = models.FileField(upload_to='imagecategorie',null=True)
-    image_nom = models.CharField(max_length=255,null=True)
-    image_url = models.CharField(max_length=255,null=True)
+    
     
     statut = models.BooleanField(default=False,null=True)
     date_add = models.DateTimeField(auto_now_add=True,null=True)

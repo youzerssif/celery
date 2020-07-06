@@ -4,6 +4,7 @@ from requests import get
 from bs4 import BeautifulSoup
 import json
 from django.http import JsonResponse
+from . import models
 # Create your views here.
 
 
@@ -32,6 +33,29 @@ def cat_api(request):
         
         mydata.append(c)
         # print(mydata)
+        for categories in mydata:
+            for categorie in categories:
+                
+                categorie_url = 'https://www.zalando.fr' + categorie['url_key']
+                categorie_name = categorie['name']
+                try:
+                    is_exist = (
+                        models.Categorie.objects.filter(nom=categorie_name) or None
+                    )
+                    # print("is exist  === ", is_exist)
+                    if is_exist is not None:
+                        pass
+                    else:
+                        category = models.Categorie(
+                        nom=categorie_name,
+                        lien=categorie_url
+                        )
+                        category.save()
+                        print('Categorie enregistrer')
+                        
+
+                except:
+                    print("enregistrement de la categorie echouer")
     else:
         print('erreur statut',response.status_code)
     return JsonResponse(data=mydata, safe=False) 
