@@ -84,7 +84,10 @@ class Produit(models.Model):
     prix = models.CharField(max_length=255,null=True)
     prix_reduit = models.CharField(max_length=255,null=True)
     nom_marque = models.CharField(max_length=255,null=True)
-    description = models.TextField(null=True)
+    # description = models.TextField(null=True)
+    #proposition
+    description = JSONField(default=None, null=True, blank=True)
+
     couleur = JSONField(null=True)
     taille = ArrayField(
         models.CharField(max_length=255),
