@@ -25,6 +25,27 @@ class Categorie(models.Model):
         """Unicode representation of Categorie."""
         return self.nom
 
+class CategorieLook(models.Model):
+    """Model definition for CategorieLook."""
+
+    # TODO: Define fields here
+    nom = models.CharField(max_length=255,null=True)
+    lien = models.URLField(max_length=255,null=True)
+    
+    
+    statut = models.BooleanField(default=False,null=True)
+    date_add = models.DateTimeField(auto_now_add=True,null=True)
+    date_upd = models.DateTimeField(auto_now=True,null=True)
+
+    class Meta:
+        """Meta definition for CategorieLook."""
+
+        verbose_name = 'CategorieLook'
+        verbose_name_plural = 'CategorieLooks'
+
+    def __str__(self):
+        """Unicode representation of CategorieLook."""
+        return self.nom
 
     
 
@@ -147,6 +168,7 @@ class Look(models.Model):
     """Model definition for Look."""
 
     # TODO: Define fields here
+    look = models.ForeignKey(CategorieLook, on_delete=models.CASCADE,related_name="lookcategorie",null=True)
     nom_auteur = models.CharField(max_length=255,null=True)
     image_auteur = models.FileField(upload_to='imageauteur')
     article = models.ManyToManyField(Produit, related_name='articlelook')
