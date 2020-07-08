@@ -177,7 +177,7 @@ def look(request):
                             # status = False
                             # soup = ""
                             # cnt = 0
-                            dataarticle = []
+                            
                             if response.status_code == 200:
                                 html_doc1 = response.text
                                 soup1 = BeautifulSoup(html_doc1, 'html.parser')
@@ -186,11 +186,11 @@ def look(request):
                                 data_to_python_json1 = div_module.contents[0].replaceWith("")
                                 datasjson1 = json.loads(data_to_python_json1)
                                 datas2 = datasjson1['graphqlCache']
-
+                                dataarticle = []
                                 for key2 in datas2.keys(): 
                                     if "ern:product" in key2:
                                         try:
-                                            contdata = datas2[key]['data']['product']
+                                            contdata = datas2[key2]['data']['product']
                                             
                                             dataarticle.append(contdata)
                                         except:
@@ -199,6 +199,8 @@ def look(request):
                                     if "ern:collection" in key2:
                                         outfilt = datas2[key2]['data']
                                         dataarticle.append(outfilt)
+                                        # outfilt = outfilt['collection']
+                                        # print(outfilt[1])
                             
                                 # try:
                                 #     is_exist = (
@@ -235,10 +237,10 @@ def look(request):
             except:
                 data = None
             status = True
-    return JsonResponse(data=data, safe=False)
+    return JsonResponse(data=outfilt, safe=False)
 
 def articlelook(request):
-    url = 'https://www.zalando.fr/outfits/DQ5B3SZeRDm/'
+    url = 'https://www.zalando.fr/outfits/OrAMBkY5SuG/'
     headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
     
     req = requests.get(url,headers=headers)
