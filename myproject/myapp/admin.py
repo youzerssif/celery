@@ -65,6 +65,35 @@ class CategorieLookAdmin(admin.ModelAdmin):
         self.message_user(request, "La selection a été desactivé avec succés")
 
     desactive.short_description = "desactivés Les Categories selectionnées"
+    
+class ArticleLinkAdmin(admin.ModelAdmin):
+    list_display = (
+        'link',
+        'statut',
+        'date_add'
+    )
+    list_filter = (
+        'statut',
+        'date_add'
+    )
+    
+    search_fields = ('link',)
+    date_hierarchy = ('date_add')
+    actions = ('active', 'desactive')
+    
+    list_per_page = 10
+
+    def active(self, request, queryset):
+        queryset.update(statut=True)
+        self.message_user(request, "La selection a été activé avec succés")
+
+    active.short_description = "activer Les Categories selectionnées"
+
+    def desactive(self, request, queryset):
+        queryset.update(statut=False)
+        self.message_user(request, "La selection a été desactivé avec succés")
+
+    desactive.short_description = "desactivés Les Categories selectionnées"
 
 class SousCategorieAdmin(admin.ModelAdmin):
     list_display = (
@@ -236,4 +265,5 @@ _register(models.SousCategorieItem, SousCategorieItemAdmin)
 _register(models.Collection, CollectionAdmin)
 _register(models.Categorie, CategorieAdmin)
 _register(models.CategorieLook, CategorieLookAdmin)
+_register(models.ArticleLink, ArticleLinkAdmin)
 _register(models.SousCategorie, SousCategorieAdmin)

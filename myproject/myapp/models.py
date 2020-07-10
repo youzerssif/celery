@@ -95,6 +95,29 @@ class SousCategorieItem(models.Model):
         """Unicode representation of SousCategorieItem."""
         return self.nom
 
+class ArticleLink(models.Model):
+    """Model definition for ArticleLink."""
+
+    # TODO: Define fields here
+    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, related_name="articlelink",null=True)
+    link = models.URLField(max_length=255,null=True)
+    
+    
+    statut = models.BooleanField(default=False,null=True)
+    date_add = models.DateTimeField(auto_now_add=True,null=True)
+    date_upd = models.DateTimeField(auto_now=True,null=True)
+
+    class Meta:
+        """Meta definition for ArticleLink."""
+
+        verbose_name = 'ArticleLink'
+        verbose_name_plural = 'ArticleLinks'
+
+    def __str__(self):
+        """Unicode representation of ArticleLink."""
+        return self.link
+
+
 class Produit(models.Model):
     """Model definition for Produit."""
 
